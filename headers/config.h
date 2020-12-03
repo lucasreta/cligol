@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#define BOARD_HEIGHT 10
-#define BOARD_WIDTH 10
+#define BOARD_HEIGHT 7
+#define BOARD_WIDTH 52
 #define TOROIDAL 1
 #define FILENAME "data/board.txt"
 

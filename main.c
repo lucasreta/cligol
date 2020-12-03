@@ -20,11 +20,9 @@ struct t_board file_read_or_create ();
 int main (int c, char **v)
 {
     struct t_board board = file_read_or_create ();
-    int display = 0;
-    int controllable = 0;
-    if (c > 1) display = atoi (v[1]);
-    if (c > 2) controllable = atoi (v[2]);
-    if (display == 0)
+    int display = (c > 1) ? atoi (v[1]) : 0;
+    int controllable = (c > 2) ? atoi (v[2]) : 0;
+    if (display != 1)
     {
         move (board.grid);
     }
@@ -147,7 +145,10 @@ void show (int Z[BOARD_HEIGHT][BOARD_WIDTH])
     {
         for (j = 0; j < BOARD_WIDTH; j++)
         {
-            printf ("%d ", Z[i][j]);
+            if (Z[i][j] == 0)
+                printf ("- ");
+            else
+                printf ("X ");
         }
         printf ("\n");
     }
@@ -188,7 +189,7 @@ void display_loop (struct t_board *board, int controllable)
         int read = scanf ("%d", &control);
         if (read != 1) control = 1;
     }
-    while (controllable == 1 && control == 0)
+    while (control == 0)
     {
         clear ();
         move (board->grid);
@@ -198,6 +199,10 @@ void display_loop (struct t_board *board, int controllable)
             printf ("Press 0 to continue, other key to exit: ");
             int read = scanf ("%d", &control);
             if (read != 1) control = 1;
+        }
+        else
+        {
+            control = 1;
         }
     }
 }
