@@ -1,15 +1,15 @@
 #include "headers/config.h"
 #include "headers/custom_string.h"
 
-void compute (int N[BOARD_HEIGHT][BOARD_WIDTH], int Z[BOARD_HEIGHT][BOARD_WIDTH]);
+void compute (int neighbors[BOARD_HEIGHT][BOARD_WIDTH], int board[BOARD_HEIGHT][BOARD_WIDTH]);
 
-void randomize (int N[BOARD_HEIGHT][BOARD_WIDTH]);
+void randomize (int board[BOARD_HEIGHT][BOARD_WIDTH]);
 
 void clear () { printf ("\033[H\033[J"); }
 
-void show (int Z[BOARD_HEIGHT][BOARD_WIDTH]);
+void show (int board[BOARD_HEIGHT][BOARD_WIDTH]);
 
-void move (int current_board[BOARD_HEIGHT][BOARD_WIDTH]);
+void move (int board[BOARD_HEIGHT][BOARD_WIDTH]);
 
 void display_loop (struct t_board *board, int controllable);
 
@@ -138,14 +138,14 @@ void randomize (int board[BOARD_HEIGHT][BOARD_WIDTH])
 
 }
 
-void show (int Z[BOARD_HEIGHT][BOARD_WIDTH])
+void show (int board[BOARD_HEIGHT][BOARD_WIDTH])
 {
     int i,j;
     for (i = 0; i < BOARD_HEIGHT; i++)
     {
         for (j = 0; j < BOARD_WIDTH; j++)
         {
-            if (Z[i][j] == 0)
+            if (board[i][j] == 0)
                 printf ("- ");
             else
                 printf ("X ");
@@ -155,23 +155,23 @@ void show (int Z[BOARD_HEIGHT][BOARD_WIDTH])
 
 }
 
-void move (int current_board[BOARD_HEIGHT][BOARD_WIDTH])
+void move (int board[BOARD_HEIGHT][BOARD_WIDTH])
 {
     int i, j;
     int future_board[BOARD_HEIGHT][BOARD_WIDTH]= {{0}};
-    compute (future_board, current_board);
+    compute (future_board, board);
 
     for (i = 0; i < BOARD_HEIGHT; i++)
     {
         for (j = 0; j < BOARD_WIDTH; j++)
         {
-            if ((current_board[i][j] == 1) && (future_board[i][j] < 2 || future_board[i][j] > 3))
+            if ((board[i][j] == 1) && (future_board[i][j] < 2 || future_board[i][j] > 3))
             {
-                current_board[i][j] = 0;
+                board[i][j] = 0;
             }
-            else if ((current_board[i][j] == 0) && (future_board[i][j] == 3))
+            else if ((board[i][j] == 0) && (future_board[i][j] == 3))
             {
-                current_board[i][j] = 1;
+                board[i][j] = 1;
             }
         }
     }
